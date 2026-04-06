@@ -20,7 +20,7 @@ const index = () => {
       <View style={styles.addTask}>
         <TextInput
           style={styles.addTodo}
-          placeholder="Add new task"
+          placeholder="Add new taskk"
           value={input}
           onChangeText={(t) => setInput(t)}
         ></TextInput>
