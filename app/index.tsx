@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -10,29 +10,38 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const index = () => {
+  const [input, setInput] = useState("");
+  const [task, setTask] = useState([]);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Your To Do</Text>
       </View>
       <View style={styles.addTask}>
-        <TextInput style={styles.addTodo}>
-          <Text style={styles.addTodoText}>Add new task</Text>
-        </TextInput>
-        <TouchableOpacity style={styles.btn}>
+        <TextInput
+          style={styles.addTodo}
+          placeholder="Add new task"
+          value={input}
+          onChangeText={(t) => setInput(t)}
+        ></TextInput>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => {
+            if (input.trim("") === "") return;
+            setTask([...task, input]);
+            setInput("");
+          }}
+        >
           <Text style={styles.btnText}>Add</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView>
+      <ScrollView style={styles.scroll}>
         <View style={styles.tasks}>
-          <Text style={styles.id}>Task1</Text>
-          <Text style={styles.id}>Task2</Text>
-          <Text style={styles.id}>Task3</Text>
-          <Text style={styles.id}>Task4</Text>
-          <Text style={styles.id}>Task5</Text>
-          <Text style={styles.id}>Task6</Text>
-          <Text style={styles.id}>Task7</Text>
-          <Text style={styles.id}>Task8</Text>
+          {task.map((item, index) => (
+            <Text key={index} style={styles.id}>
+              {item}
+            </Text>
+          ))}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -71,14 +80,10 @@ const styles = StyleSheet.create({
     fontSize: 25,
     justifyContent: "center",
     alignItems: "center",
-    borderBottomWidth: 3,
+    borderBottomWidth: 2,
     borderBottomColor: "black",
   },
-  addTodoText: {
-    color: "#252525",
-    fontSize: 35,
-    fontWeight: "500",
-  },
+
   btn: {
     height: "100%",
     width: "20%",
@@ -90,9 +95,11 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     color: "#252525",
   },
+  scroll: {
+    height: "100%",
+  },
   tasks: {
     // backgroundColor: "pink",
-    height: "80%",
     padding: "2%",
   },
   id: {
