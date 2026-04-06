@@ -23,7 +23,7 @@ const index = () => {
           placeholder="Add new taskk"
           value={input}
           onChangeText={(t) => setInput(t)}
-        ></TextInput>
+        />
         <TouchableOpacity
           style={styles.btn}
           onPress={() => {
