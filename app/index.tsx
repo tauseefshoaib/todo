@@ -12,6 +12,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const index = () => {
   const [input, setInput] = useState("");
   const [task, setTask] = useState([]);
+
+  function saveInput(textinput) {
+    setInput(textinput);
+  }
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -22,7 +26,7 @@ const index = () => {
           style={styles.addTodo}
           placeholder="Add new taskk"
           value={input}
-          onChangeText={(t) => setInput(t)}
+          onChangeText={saveInput}
         />
         <TouchableOpacity
           style={styles.btn}
