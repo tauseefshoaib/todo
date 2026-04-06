@@ -29,7 +29,7 @@ const index = () => {
           onChangeText={saveInput}
         />
         <TouchableOpacity
-          style={styles.btn}
+          style={styles.button}
           onPress={() => {
             if (input.trim("") === "") return;
             setTask([...task, input]);
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "black",
   },
 
-  btn: {
+  button: {
     height: "100%",
     width: "20%",
     alignItems: "center",
