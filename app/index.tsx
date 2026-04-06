@@ -16,6 +16,11 @@ const index = () => {
   function saveInput(textinput) {
     setInput(textinput);
   }
+  function taskAdd() {
+    if (input.trim("") === "") return;
+    setTask([...task, input]);
+    setInput("");
+  }
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -28,14 +33,7 @@ const index = () => {
           value={input}
           onChangeText={saveInput}
         />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            if (input.trim("") === "") return;
-            setTask([...task, input]);
-            setInput("");
-          }}
-        >
+        <TouchableOpacity style={styles.button} onPress={taskAdd}>
           <Text style={styles.btnText}>Add</Text>
         </TouchableOpacity>
       </View>
