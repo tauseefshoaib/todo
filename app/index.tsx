@@ -39,9 +39,9 @@ const index = () => {
       </View>
       <ScrollView style={styles.scroll}>
         <View style={styles.tasks}>
-          {task.map((item, index) => (
+          {task.map((todo, index) => (
             <Text key={index} style={styles.id}>
-              {item}
+              {todo}
             </Text>
           ))}
         </View>
