@@ -24,7 +24,7 @@ const index = () => {
       <View style={styles.addTask}>
         <TextInput
           style={styles.addTodo}
-          placeholder="Add new taskk"
+          placeholder="Add new task"
           value={input}
           onChangeText={saveInput}
         />
