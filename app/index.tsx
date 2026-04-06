@@ -72,11 +72,9 @@ const styles = StyleSheet.create({
   addTask: {
     margin: 20,
     height: "10%",
-    // backgroundColor: "#666",
     flexDirection: "row",
   },
   addTodo: {
-    // backgroundColor: "pink",
     width: "80%",
     padding: 20,
     fontSize: 25,
@@ -101,7 +99,6 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   tasks: {
-    // backgroundColor: "pink",
     padding: "2%",
   },
   id: {
