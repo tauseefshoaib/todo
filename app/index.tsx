@@ -34,7 +34,7 @@ const index = () => {
           onChangeText={saveInput}
         />
         <TouchableOpacity style={styles.button} onPress={taskAdd}>
-          <Text style={styles.btnText}>Add</Text>
+          <Text style={styles.buttonText}>Add</Text>
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.scroll}>
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  btnText: {
+  buttonText: {
     fontSize: 30,
     fontWeight: "500",
     color: "#252525",
