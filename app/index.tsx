@@ -13,14 +13,37 @@ const index = () => {
   const [input, setInput] = useState("");
   const [task, setTask] = useState([]);
 
-  function handleTextInputChange(textinput) {
-    setInput(textinput);
+  function updateTodo() {
+    {
+      /* TODO: write update todo logic */
+    }
   }
+
+  function deleteTodo() {
+    {
+      /* TODO: write delete todo logic */
+    }
+  }
+
+  function getRandomId() {
+    let id = Math.floor(Math.random() * 10000000);
+    return id;
+  }
+
   function taskAdd() {
-    if (input.trim("") === "") return;
-    setTask([...task, input]);
+    if (input.trim() === "") return;
+
+    setTask([
+      ...task,
+      {
+        task: input,
+        id: `${getRandomId()}-${input}`,
+      },
+    ]);
+
     setInput("");
   }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -31,19 +54,22 @@ const index = () => {
           style={styles.addTodo}
           placeholder="Add new task"
           value={input}
-          onChangeText={handleTextInputChange}
+          onChangeText={setInput}
         />
         <TouchableOpacity style={styles.button} onPress={taskAdd}>
           <Text style={styles.buttonText}>Add</Text>
         </TouchableOpacity>
       </View>
+      {/* TODO: use flatlist */}
       <ScrollView style={styles.scroll}>
         <View style={styles.tasks}>
-          {task.map((todo, index) => (
-            <Text key={index} style={styles.id}>
-              {todo}
+          {task.map((todo) => (
+            <Text key={todo.id} style={styles.id}>
+              {todo.task}
             </Text>
           ))}
+          {/* TODO: add a view to show delete button */}
+          {/* TODO: add a view to show update button */}
         </View>
       </ScrollView>
     </SafeAreaView>
