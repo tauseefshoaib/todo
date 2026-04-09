@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -10,29 +10,66 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const index = () => {
+  const [input, setInput] = useState("");
+  const [task, setTask] = useState([]);
+
+  function updateTodo() {
+    {
+      /* TODO: write update todo logic */
+    }
+  }
+
+  function deleteTodo() {
+    {
+      /* TODO: write delete todo logic */
+    }
+  }
+
+  function getRandomId() {
+    let id = Math.floor(Math.random() * 10000000);
+    return id;
+  }
+
+  function taskAdd() {
+    if (input.trim() === "") return;
+
+    setTask([
+      ...task,
+      {
+        task: input,
+        id: `${getRandomId()}-${input}`,
+      },
+    ]);
+
+    setInput("");
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Your To Do</Text>
       </View>
       <View style={styles.addTask}>
-        <TextInput style={styles.addTodo}>
-          <Text style={styles.addTodoText}>Add new task</Text>
-        </TextInput>
-        <TouchableOpacity style={styles.btn}>
-          <Text style={styles.btnText}>Add</Text>
+        <TextInput
+          style={styles.addTodo}
+          placeholder="Add new task"
+          value={input}
+          onChangeText={setInput}
+        />
+        <TouchableOpacity style={styles.button} onPress={taskAdd}>
+          <Text style={styles.buttonText}>Add</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView>
+      {/* TODO: use flatlist */}
+      <ScrollView style={styles.scroll}>
         <View style={styles.tasks}>
-          <Text style={styles.id}>Task1</Text>
-          <Text style={styles.id}>Task2</Text>
-          <Text style={styles.id}>Task3</Text>
-          <Text style={styles.id}>Task4</Text>
-          <Text style={styles.id}>Task5</Text>
-          <Text style={styles.id}>Task6</Text>
-          <Text style={styles.id}>Task7</Text>
-          <Text style={styles.id}>Task8</Text>
+          {task.map((todo) => (
+            <Text key={todo.id} style={styles.id}>
+              {todo.task}
+            </Text>
+          ))}
+          {/* TODO: add a view to show delete button */}
+          {/* TODO: add a view to show update button */}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -61,38 +98,33 @@ const styles = StyleSheet.create({
   addTask: {
     margin: 20,
     height: "10%",
-    // backgroundColor: "#666",
     flexDirection: "row",
   },
   addTodo: {
-    // backgroundColor: "pink",
     width: "80%",
     padding: 20,
     fontSize: 25,
     justifyContent: "center",
     alignItems: "center",
-    borderBottomWidth: 3,
+    borderBottomWidth: 2,
     borderBottomColor: "black",
   },
-  addTodoText: {
-    color: "#252525",
-    fontSize: 35,
-    fontWeight: "500",
-  },
-  btn: {
+
+  button: {
     height: "100%",
     width: "20%",
     alignItems: "center",
     justifyContent: "center",
   },
-  btnText: {
+  buttonText: {
     fontSize: 30,
     fontWeight: "500",
     color: "#252525",
   },
+  scroll: {
+    height: "100%",
+  },
   tasks: {
-    // backgroundColor: "pink",
-    height: "80%",
     padding: "2%",
   },
   id: {
