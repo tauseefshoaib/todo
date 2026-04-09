@@ -13,7 +13,7 @@ const index = () => {
   const [input, setInput] = useState("");
   const [task, setTask] = useState([]);
 
-  function saveInput(textinput) {
+  function handleTextInputChange(textinput) {
     setInput(textinput);
   }
   function taskAdd() {
@@ -31,7 +31,7 @@ const index = () => {
           style={styles.addTodo}
           placeholder="Add new task"
           value={input}
-          onChangeText={saveInput}
+          onChangeText={handleTextInputChange}
         />
         <TouchableOpacity style={styles.button} onPress={taskAdd}>
           <Text style={styles.buttonText}>Add</Text>
