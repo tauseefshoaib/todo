@@ -58,7 +58,6 @@ const index = () => {
           <Text style={styles.buttonText}>Add</Text>
         </TouchableOpacity>
       </View>
-      {/* TODO: use flatlist */}
 
       <FlatList
         data={task}
