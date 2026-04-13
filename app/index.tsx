@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {
-  ScrollView,
+  FlatList,
   StyleSheet,
   Text,
   TextInput,
@@ -33,14 +33,12 @@ const index = () => {
   function taskAdd() {
     if (input.trim() === "") return;
 
-    setTask([
-      ...task,
-      {
-        task: input,
-        id: `${getRandomId()}-${input}`,
-      },
-    ]);
+    const newTask = {
+      id: getRandomId(),
+      task: input,
+    };
 
+    setTask((prev) => [...prev, newTask]);
     setInput("");
   }
 
@@ -61,17 +59,16 @@ const index = () => {
         </TouchableOpacity>
       </View>
       {/* TODO: use flatlist */}
-      <ScrollView style={styles.scroll}>
-        <View style={styles.tasks}>
-          {task.map((todo) => (
-            <Text key={todo.id} style={styles.id}>
-              {todo.task}
-            </Text>
-          ))}
-          {/* TODO: add a view to show delete button */}
-          {/* TODO: add a view to show update button */}
-        </View>
-      </ScrollView>
+
+      <FlatList
+        data={task}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <View style={styles.taskBox}>
+            <Text style={styles.taskText}>{item.task}</Text>
+          </View>
+        )}
+      />
     </SafeAreaView>
   );
 };
@@ -134,5 +131,15 @@ const styles = StyleSheet.create({
     fontWeight: 500,
     borderWidth: 2,
     borderRadius: 10,
+  },
+  taskBox: {
+    padding: 15,
+    borderWidth: 1,
+    borderRadius: 8,
+    margin: 10,
+  },
+
+  taskText: {
+    fontSize: 16,
   },
 });
