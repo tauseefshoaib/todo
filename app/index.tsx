@@ -30,6 +30,18 @@ const index = () => {
     return id;
   }
 
+  function renderItem({ item }) {
+    return (
+      <View style={styles.taskBox}>
+        <Text style={styles.taskText}>{item.task}</Text>
+      </View>
+    );
+  }
+
+  function extractKey(item) {
+    return item.id.toString();
+  }
+
   function taskAdd() {
     if (input.trim() === "") return;
 
@@ -59,15 +71,7 @@ const index = () => {
         </TouchableOpacity>
       </View>
 
-      <FlatList
-        data={task}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.taskBox}>
-            <Text style={styles.taskText}>{item.task}</Text>
-          </View>
-        )}
-      />
+      <FlatList data={task} keyExtractor={extractKey} renderItem={renderItem} />
     </SafeAreaView>
   );
 };
