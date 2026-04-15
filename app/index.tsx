@@ -19,10 +19,9 @@ const index = () => {
     }
   }
 
-  function deleteTodo() {
-    {
-      /* TODO: write delete todo logic */
-    }
+  function handleDeleteTodo(todoId) {
+    const updatedList = task.filter((todo) => todo.id !== todoId);
+    setTask(updatedList);
   }
 
   function getRandomId() {
@@ -34,6 +33,12 @@ const index = () => {
     return (
       <View style={styles.taskBox}>
         <Text style={styles.taskText}>{item.task}</Text>
+        <TouchableOpacity
+          style={styles.deleteButton}
+          onPress={() => handleDeleteTodo(item.id)}
+        >
+          <Text>Delete</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -82,7 +87,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "#e1d6d6",
+    backgroundColor: "#716b6b",
   },
   header: {
     height: "20%",
@@ -140,9 +145,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     margin: 10,
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    flexWrap: "wrap",
+    backgroundColor: "#999797",
   },
 
   taskText: {
     fontSize: 16,
+  },
+  deleteButoon: {
+    fontSize: 16,
+    backgroundColor: "#9e5858",
   },
 });
