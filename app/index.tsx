@@ -12,16 +12,20 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const index = () => {
   const [input, setInput] = useState("");
   const [task, setTask] = useState([]);
+  const [isUpdateMode, setIsUpdateMode] = useState(false);
+  const [selectUpdateTodo, setSelectUpdateTodo] = useState(null);
 
-  function updateTodo() {
-    {
-      /* TODO: write update todo logic */
-    }
+  function HandleUpdateTodo(todo) {
+    setIsUpdateMode(true);
+    setSelectUpdateTodo(todo);
+    setInput(todo.task);
   }
 
   function handleDeleteTodo(todoId) {
-    const updatedList = task.filter((todo) => todo.id !== todoId);
-    setTask(updatedList);
+    if (isUpdateMode === false) {
+      const updatedList = task.filter((todo) => todo.id !== todoId);
+      setTask(updatedList);
+    }
   }
 
   function getRandomId() {
@@ -33,12 +37,20 @@ const index = () => {
     return (
       <View style={styles.taskBox}>
         <Text style={styles.taskText}>{item.task}</Text>
-        <TouchableOpacity
-          style={styles.deleteButton}
-          onPress={() => handleDeleteTodo(item.id)}
-        >
-          <Text>Delete</Text>
-        </TouchableOpacity>
+        <View style={styles.deleteAndAdd}>
+          <TouchableOpacity
+            style={styles.updateButton}
+            onPress={() => HandleUpdateTodo(item)}
+          >
+            <Text style={{ fontSize: 20 }}>Edit</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.deleteButton}
+            onPress={() => handleDeleteTodo(item.id)}
+          >
+            <Text style={{ fontSize: 20 }}>Delete</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -50,12 +62,26 @@ const index = () => {
   function taskAdd() {
     if (input.trim() === "") return;
 
-    const newTask = {
-      id: getRandomId(),
-      task: input,
-    };
+    if (isUpdateMode) {
+      const updatedList = task.map((todo) => {
+        if (todo.id === selectUpdateTodo.id) {
+          return { ...todo, task: input };
+        }
+        return todo;
+      });
 
-    setTask((prev) => [...prev, newTask]);
+      setTask(updatedList);
+
+      setIsUpdateMode(false);
+      setSelectUpdateTodo(null);
+    } else {
+      const newTask = {
+        id: getRandomId(),
+        task: input,
+      };
+
+      setTask((prev) => [...prev, newTask]);
+    }
     setInput("");
   }
 
@@ -72,7 +98,7 @@ const index = () => {
           onChangeText={setInput}
         />
         <TouchableOpacity style={styles.button} onPress={taskAdd}>
-          <Text style={styles.buttonText}>Add</Text>
+          <Text style={styles.buttonText}>{isUpdateMode ? "Edit" : "Add"}</Text>
         </TouchableOpacity>
       </View>
 
@@ -87,7 +113,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "#716b6b",
+    backgroundColor: "#D3DAD9",
   },
   header: {
     height: "20%",
@@ -97,7 +123,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 45,
     fontWeight: "bold",
-    color: "#252525",
+    color: "#37353E",
   },
 
   addTask: {
@@ -145,18 +171,25 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     margin: 10,
-    flex: 1,
+    flex: 2,
     flexDirection: "row",
     justifyContent: "space-between",
     flexWrap: "wrap",
-    backgroundColor: "#999797",
+    backgroundColor: "white",
   },
 
   taskText: {
-    fontSize: 16,
+    fontSize: 20,
   },
-  deleteButoon: {
-    fontSize: 16,
-    backgroundColor: "#9e5858",
+  deleteButton: {
+    fontSize: 20,
+  },
+  updateButton: {
+    fontSize: 20,
+  },
+  deleteAndAdd: {
+    flexDirection: "row",
+    gap: 20,
+    fontSize: 20,
   },
 });
