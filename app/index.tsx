@@ -19,10 +19,9 @@ const index = () => {
     }
   }
 
-  function deleteTodo() {
-    {
-      /* TODO: write delete todo logic */
-    }
+  function handleDeleteTodo(todoId) {
+    const updatedList = task.filter((todo) => todo.id !== todoId);
+    setTask(updatedList);
   }
 
   function getRandomId() {
@@ -34,6 +33,9 @@ const index = () => {
     return (
       <View style={styles.taskBox}>
         <Text style={styles.taskText}>{item.task}</Text>
+        <TouchableOpacity onPress={() => handleDeleteTodo(item.id)}>
+          <Text>Delete</Text>
+        </TouchableOpacity>
       </View>
     );
   }
