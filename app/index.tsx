@@ -15,7 +15,7 @@ const index = () => {
   const [isUpdateMode, setIsUpdateMode] = useState(false);
   const [selectUpdateTodo, setSelectUpdateTodo] = useState(null);
 
-  function HandleUpdateTodo(todo) {
+  function handleUpdateTodo(todo) {
     setIsUpdateMode(true);
     setSelectUpdateTodo(todo);
     setInput(todo.task);
@@ -40,7 +40,7 @@ const index = () => {
         <View style={styles.deleteAndAdd}>
           <TouchableOpacity
             style={styles.updateButton}
-            onPress={() => HandleUpdateTodo(item)}
+            onPress={() => handleUpdateTodo(item)}
           >
             <Text style={{ fontSize: 20 }}>Edit</Text>
           </TouchableOpacity>
